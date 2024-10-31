@@ -19,6 +19,8 @@ pydantic
 fluent.runtime
 fluent.syntax
 colorama
+python-dotenv
+openai
 
 ###############################################################
 ###     Some useful async libraries to use with aiogram     ###

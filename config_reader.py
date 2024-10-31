@@ -4,9 +4,11 @@ from os import environ
 from tomllib import load
 from typing import Type, TypeVar
 
+from dotenv import load_dotenv
 from pydantic import BaseModel, SecretStr, field_validator
 
 ConfigType = TypeVar("ConfigType", bound=BaseModel)
+load_dotenv()
 
 
 class LogRenderer(StrEnum):
@@ -60,4 +62,6 @@ def get_config(model: Type[ConfigType], root_key: str) -> ConfigType:
     if root_key not in config_dict:
         error = f"Key {root_key} not found"
         raise ValueError(error)
+    if root_key == "bot":
+        config_dict[root_key]["token"] = environ.get("BOT_TOKEN")
     return model.model_validate(config_dict[root_key])

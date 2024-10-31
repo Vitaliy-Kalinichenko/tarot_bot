@@ -12,6 +12,7 @@ from structlog.typing import FilteringBoundLogger
 from dispatcher import dp
 import handlers
 
+
 async def main():
     # init logging
     log_config: LogConfig = get_config(model=LogConfig, root_key="logs")
@@ -22,9 +23,9 @@ async def main():
 
     # init bot object
     bot = Bot(
-        token=bot_config.token.get_secret_value(), # get token as secret, so it will be hidden in logs
+        token=bot_config.token.get_secret_value(),  # get token as secret, so it will be hidden in logs
         default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML # ParseMode (HTML or MARKDOWN_V2 is preferable)
+            parse_mode=ParseMode.HTML  # ParseMode (HTML or MARKDOWN_V2 is preferable)
         )
     )
 

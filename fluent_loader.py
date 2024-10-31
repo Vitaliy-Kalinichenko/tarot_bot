@@ -3,7 +3,7 @@ from pathlib import Path
 from fluent.runtime import FluentLocalization, FluentResourceLoader
 
 
-def get_fluent_localization() -> FluentLocalization:
+def get_fluent_localization(language_code: str = "en") -> FluentLocalization:
     """
     Load locales file 'locale.ftl; from 'l10n' directory
     :return: FluentLocalization object
@@ -11,7 +11,7 @@ def get_fluent_localization() -> FluentLocalization:
 
     # Checks to make sure there's
     # the correct file in the correct directory
-    locale_dir = Path(__file__).parent.joinpath("l10n")
+    locale_dir = Path(__file__).parent.joinpath("l10n", language_code)
     if not locale_dir.exists():
         error = "'l10n' directory not found"
         raise FileNotFoundError(error)
@@ -28,7 +28,7 @@ def get_fluent_localization() -> FluentLocalization:
         str(locale_file.absolute()),
     )
     return FluentLocalization(
-        locales=["ru"],
+        locales=[language_code],
         resource_ids=[str(locale_file.absolute())],
         resource_loader=l10n_loader
     )
